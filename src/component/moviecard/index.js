@@ -10,10 +10,12 @@ import {AiOutlineHeart}from 'react-icons/ai'
 
 export function CustomImage({ src, alt, ...rest }) {
     if (src.startsWith('http') || src.startsWith('https')) {
-      return <img src={src} alt={alt} {...rest} />;
+      return <img src={src} alt={alt} {...rest}  width={50}
+      height={50} />;
     }
   
-    return <Image src={src} alt={alt} {...rest} />;
+    return <Image src={src} alt={alt} {...rest}  width={50}
+    height={50}/>;
   }
 
 export default function MovieBox(props) {

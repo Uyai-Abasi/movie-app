@@ -9,6 +9,7 @@ import Moviedetail from '@/component/singlepage/moviedetail';
 import Series from '@/component/singlepage/series';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import loadingGif from '/src/images/giphy.gif';
 import { useMovieDetails } from '@/hooks/movies';
 
@@ -87,7 +88,7 @@ console.log(movie)
       </Tabs>
       <TabPanel value={value} index={0}>
         {loading ? (
-          <img src={loadingGif} alt="Loading" />
+          <Image src={loadingGif} alt="Loading" />
         ) : (
           <></>
         )}

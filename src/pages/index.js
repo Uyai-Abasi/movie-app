@@ -8,6 +8,7 @@ import { useTopRatedMovies } from '@/hooks/movies'
 import { useMovieDetails } from '@/hooks/movies'
 import Hero from '@/component/toppage/hero'
 import load from '/src/images/load.gif'
+import Image from 'next/image'
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 export default function Home() {
@@ -20,7 +21,8 @@ export default function Home() {
   
   if (isLoading) {
     return <div>
-      <img src={load} alt='Loading...'/>
+      <Image src={load} alt='Loading... '  width={300}
+  height={200}/>
     Loading...</div>;
   }
 
