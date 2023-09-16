@@ -18,6 +18,7 @@ export function CustomImage({ src, alt, ...rest }) {
 
 export default function MovieBox(props) {
     const { data: movies, isLoading, isError } = useTopRatedMovies();
+    
     if (isLoading) {
         return <div>Loading...</div>;
       }

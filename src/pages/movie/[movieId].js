@@ -9,8 +9,8 @@ import Moviedetail from '@/component/singlepage/moviedetail';
 import Series from '@/component/singlepage/series';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import loadingGif from '/src/images/giphy.gif'
-
+import loadingGif from '/src/images/giphy.gif';
+import { useMovieDetails } from '@/hooks/movies';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,11 +46,18 @@ function a11yProps(index) {
 }
 
 export default function MoviePage() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1); // Initialize with 1 for "Movies" tab
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
 
   const { id } = router.query;
+  const { data: movie, isLoading, isError } = useMovieDetails(id); // Use id here
+console.log(movie)
+  React.useEffect(() => {
+    if (id) {
+      setValue(1); // Set to the index of the "Movies" tab when id is present
+    }
+  }, [id]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,9 +66,6 @@ export default function MoviePage() {
       router.push('/');
     }
   };
-  
-
-
 
   return (
     <Box
@@ -80,27 +84,32 @@ export default function MoviePage() {
         <Tab label="TV Series" {...a11yProps(2)} />
         <Tab label="Upcoming" {...a11yProps(3)} />
         <Tab label="Log out" {...a11yProps(4)} />
-      
       </Tabs>
       <TabPanel value={value} index={0}>
-    
-      {loading ? (
+        {loading ? (
           <img src={loadingGif} alt="Loading" />
-        ) : (<></>)}
+        ) : (
+          <></>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
-       <Moviedetail/>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : isError ? (
+          <div>Error fetching movie details</div>
+        ) : movie ? (
+          <Moviedetail movie={movie} /> // Pass the movie data to the component
+        ) : (
+          <div>Movie not found</div>
+        )}
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <Series/>
+        <Series />
       </TabPanel>
       <TabPanel value={value} index={3}>
-     <Upcoming/>
+        <Upcoming />
       </TabPanel>
-      <TabPanel value={value} index={4}>
-      
-      </TabPanel>
-     
+      <TabPanel value={value} index={4}></TabPanel>
     </Box>
   );
 }

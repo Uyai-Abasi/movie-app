@@ -1,26 +1,42 @@
 import Head from 'next/head'
-
-import { Typography,CssBaseline,Box, Grid} from '@mui/material'
+import { useState } from 'react'
+import { Typography,CssBaseline,Box,Stack, Grid,useTheme} from '@mui/material'
 import MovieBox from '@/component/moviecard'
-// import PrimarySearchAppBar from '@/component/layout/appbar'
-// import Hero from '@/component/toppage/hero'
+
 import { getRatedmovies } from '@/services/api/ratedmovies'
 import { useTopRatedMovies } from '@/hooks/movies'
 import { useMovieDetails } from '@/hooks/movies'
 import Hero from '@/component/toppage/hero'
+import load from '/src/images/load.gif'
 import Link from 'next/link';
-
+import { useRouter } from 'next/router'
 export default function Home() {
-  const color = 'white'
+  const theme = useTheme(); 
   const { data: movies, isLoading, isError } = useTopRatedMovies();
+  const [moviesToShow, setMoviesToShow] = useState(10)
+  const router = useRouter(); 
+  const [activeTab, setActiveTab] = useState(0);
+
   
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>
+      <img src={load} alt='Loading...'/>
+    Loading...</div>;
   }
 
   if (isError) {
     return <div>Error fetching data</div>;
   }
+  const handleSeeMore = () => {
+   
+    setMoviesToShow(moviesToShow + 10)
+  }
+  const visibleMovies = movies.slice(0, moviesToShow)
+  const navigateToMovieDetail = (movieId) => {
+    // Set the active tab to 1 (Movies tab)
+    setActiveTab(1);
+    router.push(`/movie/${movieId}`);
+  };
   return (
     <>
       <Head>
@@ -33,10 +49,29 @@ export default function Home() {
       <Box >
         
       <Hero/>
+      <Stack   direction={{ xs: 'column', sm: 'row' }} alignItems={'center'} justifyContent={'space-between'} 
+      sx={{
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      padding: '0',
+    },
+    [theme.breakpoints.up('sm')]: {
+      padding: '0', 
+    },
+  }}
+
+  >
+
       <Typography fontWeight={700} fontSize={36}style={{padding:"98px"}} > 
 
       Featured Movie
       </Typography>
+      <Typography padding={'98px'}> <Link href='/' passHref onClick={handleSeeMore} style={{ textDecoration: 'none' }}>
+see more
+            </Link></Typography>
+            
+      </Stack>
+      
       <Grid
       paddingX={'98px'}
                   container
@@ -45,7 +80,7 @@ export default function Home() {
                
                 >
                   
-          {movies?.map((item) => (
+          {visibleMovies?.map((item) => (
                 <Grid
 
 key={item.title}
@@ -54,7 +89,7 @@ key={item.title}
                 sm={6}
                 md={3}  
                     >
-                   <Link href={`/movie/${item.id}`} passHref>
+                   <Link href={`/movie/${item.id}`} passHref  style={{ textDecoration: 'none' }}>
       
 <MovieBox key={item.title} {...item}/>
 

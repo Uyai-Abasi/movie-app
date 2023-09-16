@@ -16,13 +16,19 @@ export async function getRatedmovies() {
 
 
 export async function fetchMovieDetails(movieId) {
+  const response = await axios.get(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
   try {
-    const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    });
-    console.log(response.data   )
+    console.log(response.data )
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function searchMovies(){
+  const response = await axios.get(`${BASE_URL}/movie/?api_key=${API_KEY}&language=en-US&page=1`)
+  try {
+    console.log(response.data )
     return response.data;
   } catch (error) {
     throw error;
