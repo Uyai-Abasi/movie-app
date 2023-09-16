@@ -4,8 +4,8 @@ import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { useTopRatedMovies } from '@/hooks/movies'
 import Image from 'next/image'
 
-import Apple from '/src/images/PngItem_1381056 1.png'
-import IMDP from '/src/images/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@ 1.png'
+// import Apple from '/src/images/PngItem_1381056 1.png'
+// import IMDP from '/src/images/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@ 1.png'
 import {AiOutlineHeart}from 'react-icons/ai'
 
 export function CustomImage({ src, alt, ...rest }) {
@@ -76,13 +76,13 @@ export default function MovieBox(props) {
               <Stack direction="row" sx={{mt:"12px"}}>
                   <Stack direction="row">
                       <Box>
-                      <Image src={IMDP} alt="imdp" />
+                      <Image src="/img/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@ 1.png" width="20" height="20" alt="imdp" />
                       </Box>
                       <Typography sx={{mx:"10px", color:"#000000"}}>860/100</Typography>
                   </Stack>
                   <Stack direction="row" ml="70px">
                   <Box>
-                      <Image src={Apple} alt="apple" />
+                      <Image src="/img/PngItem_1381056 1.png" width="20" height="20" alt="apple" />
                   </Box>
                       <Typography sx={{mx:"10px", color:"#000000"}}>97%</Typography>
                   </Stack>
