@@ -38,7 +38,7 @@ export default function Hero() {
                 <Typography>97%</Typography>
               </Stack>
             </Stack>
-<Typography width={'302px'} fontSize={'14px'} fontWeight={500}>John Wick is on the run after killing a member of the international assassins' guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</Typography>
+<Typography width={'302px'} fontSize={'14px'} fontWeight={500}>John Wick is on the run after killing a member of the international assassins &apos; guild, and with a $14 million price tag on his head, he is the target of hit men and women everywhere.</Typography>
          <Button variant='outlined' sx={{width:"200px",height:"36px",bgcolor:"#BE123C",color:"white",fontSize:"14px",borderRadius:"6px"}} startIcon={<BiPlayCircle/>} >Watch trailer</Button>
           </Stack>
 
